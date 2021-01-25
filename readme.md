@@ -4,7 +4,7 @@
 
 ONAC is an experimental, open source, proof of concept, community based, news aggregator. This is not an original idea, but sometimes reinventing the wheel is a good way to sharpen one's skills. In other words, it's a Digg/reddit/StumbleUpon clone.
 
-I developed ONAC using *two* servers, a database server, and a web server. This may be performant if this project becomes useful, however, it is not a hard requirement. Your due diligence and judgement as a sysadmin and webmaster is due. 
+I developed ONAC using *two* servers, a database server, and a web server. This may be performant if this project becomes useful, however, it is not a hard requirement. Your diligence and judgement as a sysadmin and webmaster is due. 
 
 This project was done on Debian 10, and includes some setup scripts for said distribution. For ease of setup, you may consider using my preferences. I cannot be sure my scripts work on another distribution or platform. Use your system administration skills to interpret the scripts and adjust to your needs.
 
