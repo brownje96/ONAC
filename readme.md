@@ -14,7 +14,7 @@ This project comes on an AS IS basis with no warranty of guarantee of support.
 
 On the machine you intend to run the database server, install Debian 10 if it is not already installed. Copy the `ONAC\db` directory and run `db_setup.sh` as root.
 
-On the machine you intend to run the web server on, install Debian 10 if it is not already installed. Copy the `ONAC\web` directory and run `web_setup.sh`
+On the machine you intend to run the web server on, install Debian 10 if it is not already installed. Copy the `ONAC\web` directory and run `web_setup.sh` as root.
 
 ## What now?
 
