@@ -1,39 +1,26 @@
-<HTML>
- <HEAD>
 <?php
- $servername = "SERVER_HERE";
- $username = "onac";
- $password = "PASSWORD_HERE";
- $dbname = "onac";
-
+ require 'config.php';
  $post = $_GET["hash"];
- echo "<TITLE>ONAC</TITLE>";
-?>
-</HEAD>
-<BODY>
-<?php
  $conn = new mysqli($servername, $username, $password, $dbname);
- if($conn->connect_error) {
-  die("Connection to ONAC DB failed." . $conn->connect_error);
- }
-
- $query2 = "SELECT * FROM post WHERE postHash='". $post . "'";
-
- $result = $conn->query($query2);
- if($result->num_rows > 0) {
-  while($row = $result->fetch_assoc()) {
-
-   echo "<h1>" . $row["caption"] . "</h1>";
-   echo "<h2>Posted by <a href=\"profile.php?name=" . $row["poster"] . "\">" . $row["poster"] . "</a> to <a href=\"community.php?name=" . $row["community"] . "\">" . $row["community"] . "</a> at " . $row["postTime"] . "</h2>";
-   if($row["nsfw"] > 0) echo "<h2>THIS POST IS NOT SAFE FOR WORK</h2>";
-   echo "<p>" . $row["contents"] . "</p>";
-  }
- } else {
-  die("This post does not exit.");
- }
-
+ $query = sprintf("SELECT * FROM post WHERE posthash='%s'", $post);
 ?>
-<footer>
- <center><p>&copy; 2021 brownje96</center>
-</footer>
-</BODY>
+<!DOCTYPE html>
+<HTML>
+ <?php if($conn->connect_error) {
+  echo "<HEAD><TITLE>Database Error -- ONAC</TITLE></HEAD><BODY><H1>Could not connect to the ONAC Database.</H1><H2>" . $conn->connect_error . "</H2>";
+ } else {
+  $result = $conn->query($query);
+  if($result->num_rows > 0) {
+   while($row = $result->fetch_assoc()) {
+    echo "<HEAD><TITLE>" . $row["caption"] . " -- ONAC</TITLE></HEAD><BODY>";
+    echo "<H1>". $row["caption"] . "</H1>";
+    echo "<H2>Posted by <A href=\"profile.php?name=" . $row["poster"] . "\">" . $row["poster"] . "</A> to <A href=\"community.php?name=" . $row["community"] . "\">" . $row["community"] . "</A> at " . $row["postTime"] . "</H2>";
+   if($row["nsfw"] > 0) echo "<H2>THIS POST IS NOT SAFE FOR WORK</H2>";
+   echo "<P>" . $row["contents"] . "</P>";
+   }
+  } else {
+   echo "<HEAD><TITLE>Post not found -- ONAC</TITLE></HEAD><BODY><H1>This post does not exist</H1>";
+  }
+ }
+include 'footer.php';
+?>

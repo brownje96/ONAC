@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <HTML>
  <HEAD>
   <TITLE>ONAC</TITLE>
@@ -13,9 +14,4 @@
   <p>registration is not permitted at this time. Better to make sure I know what I'm doing first than create a security nightmare.</p>
   <br/>
   <p>Visiting our community entitled <i><a href="community.php?name=onac">onac</a></i> is a good place to start.</p>
-  <footer>
-   <CENTER>
-    <p>&copy; 2021 brownje96</p>
-   </CENTER>
-  </footer>
- </BODY>
+  <?php include 'footer.php'; ?>

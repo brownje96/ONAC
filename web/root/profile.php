@@ -1,25 +1,23 @@
+<?php
+ require 'config.php';
+ $profile = $_GET["name"];
+ $query = sprintf("SELECT creationTime, verified FROM user WHERE username='%s'", $profile);
+?>
+
+<!DOCTYPE html>
 <HTML>
  <HEAD>
-<?php
- $servername = "SERVER_HERE";
- $username = "onac";
- $password = "PASSWORD_HERE";
- $dbname = "onac";
-
- $profile = $_GET["name"];
- echo "<TITLE>" . $profile . " -- ONAC</TITLE>";
-?>
-</HEAD>
-<BODY>
+  <?php echo "<TITLE>" . $profile . " -- ONAC</TITLE>"; ?>
+ </HEAD>
+ <BODY>
 <?php
  $conn = new mysqli($servername, $username, $password, $dbname);
  if($conn->connect_error) {
-  die("Connection to ONAC DB failed." . $conn->connect_error);
+  echo "Connection to ONAC DB failed." . $conn->connect_error;
  }
 
- $query1 = "SELECT creationTime, verified FROM user WHERE username='" . $profile . "'";
 
- $result = $conn->query($query1);
+ $result = $conn->query($query);
 
  if($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
@@ -28,10 +26,8 @@
    echo "<h2> Verified? " . $row["verified"] . "</h2>";
   }
  } else {
-  die("<h1>There is no user with that name...</h1>");
+  echo "<h1>There is no user with that name...</h1>";
  }
+
+ include 'footer.php';
 ?>
-<footer>
- <center><p>&copy; 2021 brownje96</center>
-</footer>
-</BODY>

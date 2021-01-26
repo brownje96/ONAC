@@ -13,13 +13,8 @@ read onac_db_host
 echo -n Enter your ONAC Database Password:
 read -s onac_db_pass
 
-sed -i "s/SERVER_HERE/$onac_db_host/" /var/www/html/community.php
-sed -i "s/SERVER_HERE/$onac_db_host/" /var/www/html/post.php
-sed -i "s/SERVER_HERE/$onac_db_host/" /var/www/html/profile.php
-
-sed -i "s/PASSWORD_HERE/$onac_db_pass/" /var/www/html/community.php
-sed -i "s/PASSWORD_HERE/$onac_db_pass/" /var/www/html/post.php
-sed -i "s/PASSWORD_HERE/$onac_db_pass/" /var/www/html/profile.php
+sed -i "s/SERVER_HERE/$onac_db_host/" /var/www/html/config.php
+sed -i "s/PASSWORD_HERE/$onac_db_pass/" /var/www/html/config.php
 
 echo
 echo Done.

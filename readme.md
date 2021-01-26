@@ -18,6 +18,6 @@ On the machine you intend to run the web server on, install Debian 10 if it is n
 
 ## What now?
 
-I will update the instructions if/as the project advances. 
+I will update the instructions if/as the project advances. You are running alpha 0.2
 
 ***Good Luck!***
