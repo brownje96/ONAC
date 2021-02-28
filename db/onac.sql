@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.5.62, for Win64 (AMD64)
+-- MySQL dump 10.18  Distrib 10.3.27-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 192.168.15.50    Database: onac
+-- Host: localhost    Database: onac
 -- ------------------------------------------------------
--- Server version	5.5.5-10.3.27-MariaDB-0+deb10u1
+-- Server version	10.3.27-MariaDB-0+deb10u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -32,7 +32,7 @@ CREATE TABLE `community` (
   `isPrivate` bit(1) NOT NULL DEFAULT b'0',
   `privateReason` text DEFAULT NULL,
   `foundingUser` varchar(25) NOT NULL,
-  `foundingTimestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `foundingTimestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `isWarned` bit(1) NOT NULL DEFAULT b'0',
   `warnedReason` text DEFAULT NULL,
   `isBanned` bit(1) NOT NULL DEFAULT b'0',
@@ -42,7 +42,7 @@ CREATE TABLE `community` (
   UNIQUE KEY `community_UN` (`communityName`),
   KEY `community_FK` (`foundingUser`),
   CONSTRAINT `community_FK` FOREIGN KEY (`foundingUser`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `community` (
 
 LOCK TABLES `community` WRITE;
 /*!40000 ALTER TABLE `community` DISABLE KEYS */;
-INSERT INTO `community` VALUES (1,'onac','\0',NULL,'onac','2021-01-25 03:47:56','\0',NULL,'\0',NULL,'All things ONAC.');
+INSERT INTO `community` VALUES (1,'onac','\0',NULL,'onac','2021-01-26 05:24:15','\0',NULL,'\0',NULL,'All things ONAC.'),(2,'wtest32','\0',NULL,'onac','2021-02-28 13:57:49','','This community is quarantined as a test of ONAC','\0',NULL,'Test Quarantined Sub'),(3,'tribbles','\0',NULL,'test','2021-02-28 14:35:14','\0',NULL,'','Illegal sales of aliens.','trading intergalactic tribbles');
 /*!40000 ALTER TABLE `community` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +68,7 @@ CREATE TABLE `post` (
   `poster` varchar(25) NOT NULL,
   `community` varchar(25) NOT NULL,
   `caption` text NOT NULL,
-  `postTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `postTime` timestamp NOT NULL DEFAULT current_timestamp(),
   `nsfw` bit(1) NOT NULL DEFAULT b'0',
   `contents` text NOT NULL,
   PRIMARY KEY (`postID`),
@@ -77,7 +77,7 @@ CREATE TABLE `post` (
   KEY `post_FK_1` (`community`),
   CONSTRAINT `post_FK` FOREIGN KEY (`poster`) REFERENCES `user` (`username`),
   CONSTRAINT `post_FK_1` FOREIGN KEY (`community`) REFERENCES `community` (`communityName`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +86,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'abc123','onac','onac','ONAC\'s First Post!','2021-01-25 04:04:35','\0','Hi everyone, this is the first post on ONAC. It is an example post. Thanks for reading, we\'ll be with you soon.');
+INSERT INTO `post` VALUES (1,'abc123','onac','onac','ONAC\'s First Post!','2021-01-25 04:04:35','\0','Hi everyone, this is the first post on ONAC. It is an example post. Thanks for reading, we\'ll be with you soon.'),(2,'k6j5n','onac','onac','Test post please ignore.','2021-02-27 05:00:00','\0','This is just a test post.'),(3,'jk85ni','test','tribbles','New Space Animals','2021-02-28 14:13:25','\0','Who wants to buy a tribble? They\'re ADORABLE.'),(4,'b7gj4k','test','wtest32','This is a shocking post.','2021-02-28 14:38:33','','Boo!');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,10 +105,10 @@ CREATE TABLE `user` (
   `banned` bit(1) NOT NULL DEFAULT b'0',
   `email` text DEFAULT NULL,
   `verified` bit(1) NOT NULL DEFAULT b'0',
-  `creationTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `creationTime` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`userID`),
   UNIQUE KEY `user_UN` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'onac','abc123','\0','\0',NULL,'','2021-01-25 02:19:14');
+INSERT INTO `user` VALUES (1,'onac','abc123','\0','\0',NULL,'','2021-01-25 02:19:14'),(2,'test','bcd256','\0','\0',NULL,'\0','2020-02-28 05:01:02');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-24 23:43:04
+-- Dump completed on 2021-02-28 15:02:54
