@@ -1,0 +1,61 @@
+/*DEFAULT STUFF*/
+
+.centered_text {
+	text-align: center;
+}
+
+.centered_image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.centered_button {
+	text-align: center;
+}
+
+/*NAVBAR*/
+
+.navbar {
+	border-style: solid none solid none;
+	border-width: 1px;
+}
+
+.navbar ul {
+	list-style: none;
+	list-style-type: none;
+	background-color: lightgray;
+	margin: 0;
+	padding: 0;
+}
+
+.navbar li {
+	display: inline;
+	font-weight: bold;
+}
+
+
+.navbar a {
+	outline: none;
+	border: none;
+	text-decoration: none;
+	color: inherit;
+}
+
+/*HEADBAR*/
+
+.headbar {
+	background-color: lightblue;
+	height: 50px;
+	width: 100%;
+	display: inline-block;
+	padding: 0px;
+	border-style: none none solid none;
+	border-color: steelblue;
+	border-width: 1px;
+}
+
+.headbar h3 {
+	line-height: 40px;
+	vertical-align: bottom;
+}

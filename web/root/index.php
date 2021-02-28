@@ -1,17 +1,29 @@
+<?php
+	require 'config.php';
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if($conn->connect_error) header("Location: down.php");
+?>
 <!DOCTYPE html>
 <HTML>
  <HEAD>
   <TITLE>ONAC</TITLE>
+  <link rel="stylesheet" type="text/css" href="data/style/main.css">
  </HEAD>
  <BODY>
-  <h1>Welcome to ONAC</h1>
-  <h2>Open News Aggregator Community</h2>
+  <?php include "data/inc/navbar.inc"; ?>
+  <div class="headbar">
+   <h3>Welcome to ONAC</h3>
+  </div>
+  <h3>Open News Aggregator Community</h3>
   <p>ONAC is an experimental, proof of concept, community based, news aggregator</p>
   <hr/>
-  <p>use profile.php?name=<i>profile</i> to view someone's profile.</p>
-  <p>use community.php?name=<i>community</i> to visit a community.</p>
-  <p>use post.php?hash=<i>postHash</i> to view a post.</p>
-  <p>registration is not permitted at this time. Better to make sure I know what I'm doing first than create a security nightmare.</p>
-  <br/>
-  <p>Visiting our community entitled <i><a href="community.php?name=onac">onac</a></i> is a good place to start.</p>
-  <?php include 'footer.php'; ?>
+  <p>
+   We do not have a "front page" yet. You are recommended to:
+   <ol>
+    <li>Visit our <a href="community.php?name=onac">default community</a>, which shares our titular name.</li>
+    <li>Visit our <a href="discover.php">community discovery</a> page, where you can view the latest communities that have been created.</li>
+   </ol>
+   Registration is not unfortunately not supported at this time while we're studying web technologies.</p>
+  <?php include 'data/inc/footer.inc'; ?>
+ </BODY>
+</HTML>

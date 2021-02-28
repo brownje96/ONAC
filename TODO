@@ -1,5 +1,14 @@
+FINISHED:
  - add logic to discover.php
- - separate logic and presentation code somehow
  - finish/decide if needed -> query.php
- - check for SQLi vulns.
+
+IN PROGRESS:
+ - separate logic and presentation code somehow
+
+NOT COMPLETE:
+ - add protection against SQLi vulns.
  - check schema for onac\community, timestamp appears to inappropriately update.
+ - add ability to comment
+ - private communities?
+ - web based administration/moderation
+ - localization
