@@ -60,7 +60,11 @@
 ?>
 
 <?php
- if($banned != 1) {
+ if($private == 1) {
+  echo "<img class=\"centered_image\" src=\"data/img/key.png\" />";
+  echo "<h1 class=\"centered_text\">This community is private</h1>";
+  echo "<h2 class=\"centered_text\">" . $privateReason . "</h2>";
+ } else if($banned != 1) {
 	 if($result1->num_rows == 0) {
 		 echo "<h1>This community does not exist...</h1>";
 	 }

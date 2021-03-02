@@ -13,27 +13,30 @@
   <link rel="stylesheet" type="text/css" href="data/style/main.css">
  </HEAD>
  <BODY>
-  <?php
-   if($conn->connect_error) {
-    include "data/inc/down.inc";
-    echo "<h3>" . $conn->connect_error . "</h3>";
-   } else {
-    include "data/inc/navbar.inc";
-    echo "<div class=\"headbar\"><h3>Find new communities on ONAC</h3></div>";
-    echo "<TABLE><TR><TH>Community</TH><TH>Description</TH><TH>Founded By</TH><TH>Since</TH></TR>";
+  <?php include "data/inc/navbar.inc"; ?>
+  <div class="headbar">
+   <h3>Find new communities on ONAC</h3>
+  </div>
+  <TABLE>
+   <TR>
+    <TH>Community</TH>
+    <TH>Description</TH>
+    <TH>Founded By</TH>
+    <TH>Since</TH>
+   </TR>
+   <?php
     while( $row = $result->fetch_assoc() ) {
      if(!(($row["isBanned"] > 0) || ($row["isPrivate"] > 0))) {
-		 echo "<TR>";
-		 echo "<TH><a href=\"community.php?name=" . $row["communityName"] . "\">" . $row["communityName"] . "</a></TH>";
-		 echo "<TH>" . $row["description"] . "</TH> ";
-		 echo "<TH>" . $row["foundingUser"] . "</TH> ";
-		 echo "<TH>" . $row["foundingTimestamp"] . "</TH> ";
-		 echo "</TR>";
-	 }
+      echo "<TR>";
+      echo "<TD><a href=\"community.php?name=" . $row["communityName"] . "\">" . $row["communityName"] . "</a></TD>";
+      echo "<TD>" . $row["description"] . "</TD>";
+      echo "<TD>" . $row["foundingUser"] . "</TD>";
+      echo "<TD>" . $row["foundingTimestamp"] . "</TD>";
+      echo "</TR>";
+     }
     }
-	echo "</TABLE>";
-   }
-?>
- <?php include 'data/inc/footer.inc';?>
+   ?>
+  </TABLE>
+  <?php include 'data/inc/footer.inc'; ?>
  </BODY>
 </HTML>
