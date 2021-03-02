@@ -5,10 +5,10 @@ FINISHED:
 
 IN PROGRESS:
  - separate logic and presentation code somehow
+ - private communities?
 
 NOT COMPLETE:
  - add protection against SQLi vulns.
  - add ability to comment
- - private communities?
  - web based administration/moderation
  - localization
