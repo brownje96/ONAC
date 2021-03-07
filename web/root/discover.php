@@ -1,9 +1,6 @@
 <?php
-	require 'config.php';
-	$statement = "SELECT communityName, isBanned, isPrivate, foundingUser, foundingTimestamp, description FROM community ORDER BY communityID DESC LIMIT 10";
-	$conn = new mysqli($servername,$username,$password,$dbname);
-	if($conn->connect_error) header("Location: down.php");
-	$result = $conn->query($statement);
+	require_once 'onac.php';
+	$result = $database_connection->query($query_get_last_10_new_communities);
 	//todo: search feature?
 ?>
 <!DOCTYPE HTML>
@@ -25,7 +22,7 @@
     <TH>Since</TH>
    </TR>
    <?php
-    while( $row = $result->fetch_assoc() ) {
+    while($row = $result->fetch_assoc()) {
      if(!(($row["isBanned"] > 0) || ($row["isPrivate"] > 0))) {
       echo "<TR>";
       echo "<TD><a href=\"community.php?name=" . $row["communityName"] . "\">" . $row["communityName"] . "</a></TD>";

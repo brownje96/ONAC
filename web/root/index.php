@@ -1,8 +1,4 @@
-<?php
-	require 'config.php';
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if($conn->connect_error) header("Location: down.php");
-?>
+<?php require_once 'onac.php'; ?>
 <!DOCTYPE html>
 <HTML>
  <HEAD>
@@ -23,7 +19,8 @@
     <li>Visit our <a href="community.php?name=onac">default community</a>, which shares our titular name.</li>
     <li>Visit our <a href="discover.php">community discovery</a> page, where you can view the latest communities that have been created.</li>
    </ol>
-   Registration is not unfortunately not supported at this time while we're studying web technologies.</p>
+   Registration is available following the links in the navigation bar.
+  </p>
   <?php include 'data/inc/footer.inc'; ?>
  </BODY>
 </HTML>

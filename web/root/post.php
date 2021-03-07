@@ -1,5 +1,8 @@
 <?php
-	require 'config.php';
+//todo require onac.php next time.
+	require_once 'config.php';
+	session_start();
+
 	$post = $_GET["hash"];
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	if($conn->connect_error) header("Location: down.php");

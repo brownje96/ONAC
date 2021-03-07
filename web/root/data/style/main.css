@@ -59,3 +59,19 @@
 	line-height: 40px;
 	vertical-align: bottom;
 }
+
+/*SIGNINUP*/
+
+form.signup {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 5px;
+}
+
+form.signup label {
+    text-align: right;
+}
+
+form.signup label:after {
+    content: ":";
+}

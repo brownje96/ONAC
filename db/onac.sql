@@ -42,7 +42,7 @@ CREATE TABLE `community` (
   UNIQUE KEY `community_UN` (`communityName`),
   KEY `community_FK` (`foundingUser`),
   CONSTRAINT `community_FK` FOREIGN KEY (`foundingUser`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='this tables stores the communities created on this instance of ONAC.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,8 +51,66 @@ CREATE TABLE `community` (
 
 LOCK TABLES `community` WRITE;
 /*!40000 ALTER TABLE `community` DISABLE KEYS */;
-INSERT INTO `community` VALUES (1,'onac','\0',NULL,'onac','2021-01-26 05:24:15','\0',NULL,'\0',NULL,'All things ONAC.'),(2,'wtest32','\0',NULL,'onac','2021-02-28 13:57:49','','This community is quarantined as a test of ONAC','\0',NULL,'Test Quarantined Sub'),(3,'tribbles','\0',NULL,'test','2021-02-28 14:35:14','\0',NULL,'','Illegal sales of aliens.','trading intergalactic tribbles');
 /*!40000 ALTER TABLE `community` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `invex`
+--
+
+DROP TABLE IF EXISTS `invex`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `invex` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userInvited` varchar(25) NOT NULL,
+  `community` varchar(25) NOT NULL,
+  `approvingModerator` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `invex_FK` (`userInvited`),
+  KEY `invex_FK_1` (`community`),
+  KEY `invex_FK_2` (`approvingModerator`),
+  CONSTRAINT `invex_FK` FOREIGN KEY (`userInvited`) REFERENCES `user` (`username`),
+  CONSTRAINT `invex_FK_1` FOREIGN KEY (`community`) REFERENCES `community` (`communityName`),
+  CONSTRAINT `invex_FK_2` FOREIGN KEY (`approvingModerator`) REFERENCES `user` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='this table stores the invites to private communities.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `invex`
+--
+
+LOCK TABLES `invex` WRITE;
+/*!40000 ALTER TABLE `invex` DISABLE KEYS */;
+/*!40000 ALTER TABLE `invex` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `moderators`
+--
+
+DROP TABLE IF EXISTS `moderators`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `moderators` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(25) NOT NULL,
+  `community` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `moderators_FK` (`username`),
+  KEY `moderators_FK_1` (`community`),
+  CONSTRAINT `moderators_FK` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
+  CONSTRAINT `moderators_FK_1` FOREIGN KEY (`community`) REFERENCES `community` (`communityName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='This table describes what users are moderators of what communities.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `moderators`
+--
+
+LOCK TABLES `moderators` WRITE;
+/*!40000 ALTER TABLE `moderators` DISABLE KEYS */;
+/*!40000 ALTER TABLE `moderators` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -70,6 +128,7 @@ CREATE TABLE `post` (
   `caption` text NOT NULL,
   `postTime` timestamp NOT NULL DEFAULT current_timestamp(),
   `nsfw` bit(1) NOT NULL DEFAULT b'0',
+  `locked` bit(1) NOT NULL,
   `contents` text NOT NULL,
   PRIMARY KEY (`postID`),
   UNIQUE KEY `post_UN` (`postHash`),
@@ -77,7 +136,7 @@ CREATE TABLE `post` (
   KEY `post_FK_1` (`community`),
   CONSTRAINT `post_FK` FOREIGN KEY (`poster`) REFERENCES `user` (`username`),
   CONSTRAINT `post_FK_1` FOREIGN KEY (`community`) REFERENCES `community` (`communityName`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='this table stores the posts.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +145,6 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'abc123','onac','onac','ONAC\'s First Post!','2021-01-25 04:04:35','\0','Hi everyone, this is the first post on ONAC. It is an example post. Thanks for reading, we\'ll be with you soon.'),(2,'k6j5n','onac','onac','Test post please ignore.','2021-02-27 05:00:00','\0','This is just a test post.'),(3,'jk85ni','test','tribbles','New Space Animals','2021-02-28 14:13:25','\0','Who wants to buy a tribble? They\'re ADORABLE.'),(4,'b7gj4k','test','wtest32','This is a shocking post.','2021-02-28 14:38:33','','Boo!');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +166,7 @@ CREATE TABLE `user` (
   `creationTime` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`userID`),
   UNIQUE KEY `user_UN` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='this table stores the users for an ONAC instance.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +175,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'onac','abc123','\0','\0',NULL,'','2021-01-25 02:19:14'),(2,'test','bcd256','\0','\0',NULL,'\0','2020-02-28 05:01:02');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-28 15:02:54
+-- Dump completed on 2021-03-06 19:26:14

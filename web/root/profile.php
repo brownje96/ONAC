@@ -1,21 +1,22 @@
 <?php
- require 'config.php';
- $profile = $_GET["name"];
- $query = sprintf("SELECT creationTime, verified FROM user WHERE username='%s'", $profile);
- $conn = new mysqli($servername, $username, $password, $dbname);
+ require_once 'onac.php';
 
- if($conn->connect_error) {
-  header("Location: down.php");
+ if(isset($_GET['name'])) {
+  $profile=$_GET['name'];
+ } else if(isset($_SESSION['login_user'])) {
+  $profile=$_SESSION['login_user'];
+ } else {
+  $profile = "";
  }
- 
 
+ $query = sprintf("SELECT creationTime, verified FROM user WHERE username='%s'", $profile);
 ?>
 
 <!DOCTYPE html>
 <HTML>
  <HEAD>
   <link href="data/style/main.css" rel="stylesheet">
-  <?php echo "<TITLE>" . $conn->connect_error . $profile . " -- ONAC</TITLE>"; ?>
+  <?php echo "<TITLE>" . $profile . " -- ONAC</TITLE>"; ?>
  </HEAD>
  <BODY>
  <?php include "data/inc/navbar.inc"; ?>
@@ -29,11 +30,8 @@
  </div>
 
 <?php
- if($conn->connect_error) {
-  echo "Connection to ONAC DB failed." . $conn->connect_error;
- }
 
- $result = $conn->query($query);
+ $result = $database_connection->query($query);
 
  if($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {

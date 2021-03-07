@@ -1,4 +1,5 @@
 <?php
+//todo: would using define(const_name, value) be better?
 
 ///////////////////////////////////////////////////////////////////
 // DATABASE CONFIGURATION					 //
@@ -41,3 +42,4 @@
 
 //TODO password difficulty settings
 ?>
+

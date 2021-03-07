@@ -1,25 +1,23 @@
 <?php
- require 'config.php';
+ require_once 'onac.php';
  $community = $_GET["name"];
- $query1 = sprintf("SELECT * FROM community WHERE communityName='%s'", $community);
+
+ //TODO clean up SQL on this page.
+
  $query2 = sprintf("SELECT postHash, poster, caption, postTime, nsfw FROM post WHERE community='%s' ORDER BY postID ASC LIMIT 10", $community);
- $conn = new mysqli($servername, $username, $password, $dbname);
-
- if($conn->connect_error) header("Location: down.php");
-
- $result1 = $conn->query($query1);
- $result2 = $conn->query($query2);
+ $result1 = $database_connection->query(sprintf($query_get_community_from_name, $community));
+ $result2 = $database_connection->query(sprintf($query_get_last_10_posts_from_community, $community));
  
  while($row = $result1->fetch_assoc()) {
-	 $description 	= $row["description"];
-	 $founder 		= $row["foundingUser"];
-	 $timestamp		= $row["foundingTimestamp"];
-	 $private		= $row["isPrivate"];
-	 $privateReason	= $row["privateReason"];
-	 $warned 		= $row["isWarned"];
-	 $warnedReason	= $row["warnedReason"];
-	 $banned 		= $row["isBanned"];
-	 $bannedReason	= $row["bannedReason"];
+	 $description 		= $row["description"];
+	 $founder 			= $row["foundingUser"];
+	 $timestamp			= $row["foundingTimestamp"];
+	 $private			= $row["isPrivate"];
+	 $privateReason		= $row["privateReason"];
+	 $warned 			= $row["isWarned"];
+	 $warnedReason		= $row["warnedReason"];
+	 $banned 			= $row["isBanned"];
+	 $bannedReason		= $row["bannedReason"];
  }
  
 ?>
