@@ -1,39 +1,54 @@
 <?php
-//todo require onac.php next time.
-	require_once 'config.php';
-	session_start();
-
-	$post = $_GET["hash"];
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if($conn->connect_error) header("Location: down.php");
-	$query = sprintf("SELECT * FROM post WHERE posthash='%s'", $post);
-	$result = $conn->query($query);
-	while($row = $result->fetch_assoc()) {
-		$title 		= $row["caption"];
-		$poster 	= $row["poster"];
-		$community 	= $row["community"];
-		$stamp 		= $row["postTime"];
-		$nsfw 		= $row["nsfw"];
-		$contents 	= $row["contents"];
-	}
-
+	require_once 'onac.php';
+	
+	// what about quarantined posts?!
+	
+	$result = $database_connection->query(sprintf($query_get_post_from_id, $_GET['hash']));
+	$row = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <HTML>
- <HEAD>
-  <TITLE><?php echo $title;?> -- ONAC</TITLE>
-  <link rel="stylesheet" type="text/css" href="data/style/main.css">
- </HEAD>
- <BODY>
-  <?php include "data/inc/navbar.inc"; ?>
-  <div class="headbar">
-   <h3><?php echo $community;?></h3>
-  </div>
-  <?php if($nsfw==1) echo "<h1 class=\"centered_text\">THIS POST IS NOT SAFE FOR WORK</h1>";?>
-  <h1><?php echo $title;?></h1>
-  <h2>by <a href="profile.php?name=<?php echo $poster;?>"><?php echo $poster;?></a> at <?php echo $stamp; ?></h2>
-  <br/>
-  <p><?php echo $contents;?>
-  <?php include 'data/inc/footer.inc'; ?>
- </BODY>
+	<HEAD>
+		<TITLE>
+		<?php
+			if($result->num_rows < 1) echo "Nothing here...";
+			else echo $row["caption"];
+		?>
+		 &nbsp;-- ONAC
+		</TITLE>
+		<link rel="stylesheet" type="text/css" href="data/style/main.css">
+	</HEAD>
+	<BODY>
+		<?php include "data/inc/navbar.inc"; ?>
+		<div class="headbar">
+			<h3>
+				<?php
+					if($result->num_rows < 1) echo "Unknown Post";
+					else echo $row["community"];
+				?>
+			</h3>
+		</div>
+		<?php
+			if($row["nsfw"] > 0) echo "<h1 class=\"centered_text\">THIS POST IS NOT SAFE FOR WORK</h1>";
+		?>
+		<h1>
+		<?php
+			if($result->num_rows > 0) echo $title;
+			else echo "There is no post with that ID.";
+		?>
+		</h1>
+		<h2>
+			<?php
+				if($result->num_rows > 0) {
+					echo $row['caption'] . "<br/> by <a href=\"profile.php?name=" . $row['poster'] . "\">" . $row['poster'] . "</a> at " . $row['postTime'];
+				}
+			?>
+		</h2>
+	<br/>
+	<p>
+		<?php
+			if($result->num_rows > 0) echo $row['contents'];
+		?>
+	<?php include 'data/inc/footer.inc'; ?>
+	</BODY>
 </HTML>
