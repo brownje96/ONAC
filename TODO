@@ -3,6 +3,7 @@ FINISHED:
  - finish/decide if needed -> query.php
  - check schema for onac\community, timestamp appears to inappropriately update.
  - ability to log in.
+ - ability to create posts.
 
 IN PROGRESS:
  - separate logic and presentation code somehow

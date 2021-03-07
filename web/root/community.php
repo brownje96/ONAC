@@ -9,15 +9,15 @@
  $result2 = $database_connection->query(sprintf($query_get_last_10_posts_from_community, $community));
  
  while($row = $result1->fetch_assoc()) {
-	 $description 		= $row["description"];
-	 $founder 			= $row["foundingUser"];
-	 $timestamp			= $row["foundingTimestamp"];
-	 $private			= $row["isPrivate"];
-	 $privateReason		= $row["privateReason"];
-	 $warned 			= $row["isWarned"];
-	 $warnedReason		= $row["warnedReason"];
-	 $banned 			= $row["isBanned"];
-	 $bannedReason		= $row["bannedReason"];
+	 $description = $row["description"];
+	 $founder = $row["foundingUser"];
+	 $timestamp = $row["foundingTimestamp"];
+	 $private = $row["isPrivate"];
+	 $privateReason = $row["privateReason"];
+	 $warned = $row["isWarned"];
+	 $warnedReason = $row["warnedReason"];
+	 $banned = $row["isBanned"];
+	 $bannedReason = $row["bannedReason"];
  }
  
 ?>
@@ -49,10 +49,9 @@
 	 echo "<h1 class=\"centered_text\">This community has been banned.</h1>";
 	 echo "<h2 class=\"centered_text\">" . $bannedReason . "</h2>";
 	 echo "<p class=\"centered_text\"><a href=\"discover.php\">Find another community?</a></p>";
- }
- if($warned == 1) {
+ } else if($warned == 1) {
 	 echo "<h1 class=\"centered_text\">This community has been quarantined.</h1>";
-	 echo "<h2 class=\"centered_text\">It may contained shocking content.</h2>";
+	 echo "<h2 class=\"centered_text\">It may contain shocking content.</h2>";
 	 echo "<h3 class=\"centered_text\">" . $warnedReason . "</h3>";
  }
 ?>
